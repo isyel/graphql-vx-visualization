@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Dashboard from "./components/Dashboard";
+import AuthorProfile from "./components/AuthorProfile";
+import "./App.css";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Nav from "./components/Nav";
+
+const client = new ApolloClient({
+	uri: "https://fakerql.nplan.io/graphql",
+	cache: new InMemoryCache(),
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Nav />
+			<ApolloProvider client={client}>
+				<Router>
+					<Switch>
+						<Route exact path="/" component={Dashboard} />
+						<Route exact path="/profile/:id" component={AuthorProfile} />
+					</Switch>
+				</Router>
+			</ApolloProvider>
+		</div>
+	);
 }
 
 export default App;
