@@ -13,9 +13,9 @@ const client = new ApolloClient({
 function App() {
 	return (
 		<div className="App">
-			<Nav />
 			<ApolloProvider client={client}>
 				<Router>
+					<Nav />
 					<Switch>
 						<Route exact path="/" component={Dashboard} />
 						<Route exact path="/profile/:id" component={AuthorProfile} />

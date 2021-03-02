@@ -29,7 +29,7 @@ function AuthorsList({ posts }) {
 			return {
 				id: authorData.id,
 				author: authorData.author,
-				posts: authorData.posts
+				monthlyPosts: authorData.posts
 					.map(
 						(eachPost) => {
 							const tempPosts = authorData.posts.filter(

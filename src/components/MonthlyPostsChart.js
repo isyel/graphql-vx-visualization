@@ -22,8 +22,8 @@ function MonthlyPostsChart({
 }) {
 	const svgRef = useRef(null);
 	const margin = {
-		top: 15,
-		bottom: 50,
+		top: 20,
+		bottom: 70,
 		left: 0,
 		right: 0,
 	};
@@ -106,12 +106,13 @@ function MonthlyPostsChart({
 					data={posts}
 					scale={xScale}
 					x={getMonth}
-					top={yScale(minPost)}
+					numTicks={6}
+					top={yScale(minPost) + 20}
+					hideAxisLine
 					tickLabelProps={() => ({
 						fill: "white",
 						fontSize: "9px",
 					})}
-					labelOffset={0.2}
 				/>
 				<Bar
 					data={posts}
@@ -154,12 +155,12 @@ function MonthlyPostsChart({
 			{tooltipData && (
 				<div>
 					<Tooltip
-						top={tooltipTop - 10}
+						top={tooltipTop - 35}
 						left={tooltipLeft}
 						className="bg-gray-500 text-white border-black border">
 						{`${getPost(tooltipData)} posts`}
 					</Tooltip>
-					<Tooltip left={tooltipLeft - 40} top={yScale(minPost) + 20}>
+					<Tooltip left={tooltipLeft - 35} top={yScale(minPost) + 20}>
 						{`${formatMonthToText(getMonth(tooltipData))}`}
 					</Tooltip>
 				</div>

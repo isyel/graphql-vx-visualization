@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
 	const [dropDownOpenStatus, setDropDownOpenStatus] = useState(false);
@@ -49,16 +50,18 @@ const Nav = () => {
 					<div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
 						<div className="flex-shrink-0 flex items-center">
 							<img
-								className="hidden lg:block h-8 w-auto"
+								className=" h-8 w-auto"
 								src="https://uploads-ssl.webflow.com/5e662485415f1e0e1e4e57ac/5eda1dad88d55ad9e1093f9b_nPlanlogowhite-01.svg"
 								alt="Workflow"
 							/>
 						</div>
 						<div className="hidden sm:block sm:ml-6">
 							<div className="flex space-x-4">
-								<button className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+								<Link
+									to="/"
+									className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
 									Posts
-								</button>
+								</Link>
 								<button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
 									Authors
 								</button>
@@ -136,20 +139,13 @@ const Nav = () => {
 			<div className="sm:hidden" id="mobile-menu">
 				<div className="px-2 pt-2 pb-3 space-y-1">
 					{/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-					<button className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
-						Profile
-					</button>
-					<button className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-						Jobs
-					</button>
-					<button className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-						Professional Network
-					</button>
-					<button className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-						Lounge
-					</button>
-					<button className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-						Salary
+					<Link
+						to="/"
+						className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+						Posts
+					</Link>
+					<button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+						Authors
 					</button>
 				</div>
 			</div>

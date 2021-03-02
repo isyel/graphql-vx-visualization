@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { gql, useQuery } from "@apollo/client";
-//import cityTemperature from "@vx/mock-data/lib/mocks/cityTemperature";
 import formatMonth from "../util/formatMonth";
 import AuthorsList from "./AuthorsList";
 import { useDataLayerValue } from "../react-context-api/DataLayer";
 import * as types from "../react-context-api/actionTypes";
-import TopPostsChart from "./TopPostsChart";
+import TopTopicsChart from "./TopTopicsChart";
 import MonthlyPostsChart from "./MonthlyPostsChart";
+import TotalTopicsPieChart from "./TotalTopicsPieChart";
+import BarChart from "./BarChart";
 
 const POSTS_QUERY = gql`
 	query PostsQuery($count: Int!) {
@@ -30,14 +31,15 @@ const POSTS_QUERY = gql`
 	}
 `;
 
-//const cityTemperatureData = cityTemperature.slice(0, 12);
-
 function Dashboard() {
-	const [{ topPostsOfTheMonth }, dispatch] = useDataLayerValue();
+	const [{ topPostsOfTheMonth, authors }, dispatch] = useDataLayerValue();
 
 	const { loading, error, data } = useQuery(POSTS_QUERY, {
 		variables: { count: 200 },
 	});
+
+	const topicsAggregation = useRef(null);
+	const authorsAggregation = useRef(null);
 
 	function groupTopics(tempPosts) {
 		let counts = {};
@@ -50,6 +52,13 @@ function Dashboard() {
 					1 + (counts[post.likelyTopics] || 0));
 		});
 		return counts;
+	}
+
+	function mapTopics(arrayObject) {
+		return Object.keys(arrayObject).map((key) => ({
+			topic: key,
+			frequency: arrayObject[key],
+		}));
 	}
 
 	useEffect(() => {
@@ -75,8 +84,19 @@ function Dashboard() {
 				);
 
 			dispatch({ type: types.SET_TOP_POSTS, topPosts: topPostOfTheMonth });
+
+			topicsAggregation.current = groupTopics(data.allPosts);
+			if (authors)
+				authorsAggregation.current = authors
+					.map((author) => ({
+						label: author.author.firstName,
+						frequency: author.posts.length,
+					}))
+					.sort((author1, author2) => author2.frequency - author1.frequency)
+					.slice(0, 6);
+			console.log("Authors: ", authorsAggregation.current);
 		}
-	}, [dispatch, data]);
+	}, [dispatch, data, authors]);
 
 	return (
 		<div className="container mx-auto my-10">
@@ -85,20 +105,40 @@ function Dashboard() {
 				{error && <p>Error :(</p>}
 				<div className="grid grid-cols-2">
 					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
-						<h1 className="text-white px-2 py-1">Top Posts of the Month</h1>
-						<p>Chart Goes here</p>
-						<TopPostsChart monthlyPosts={topPostsOfTheMonth} />
+						{topPostsOfTheMonth.length > 0 && (
+							<TopTopicsChart monthlyPosts={topPostsOfTheMonth} />
+						)}
 					</div>
 					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
 						<h1 className="text-white px-2 py-1">
 							Posts Published In the Last 12 Months
 						</h1>
-						<MonthlyPostsChart monthlyPosts={topPostsOfTheMonth} />
+						{topPostsOfTheMonth.length > 0 && (
+							<MonthlyPostsChart monthlyPosts={topPostsOfTheMonth} />
+						)}
+					</div>
+				</div>
+				<div className="grid grid-cols-2">
+					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+						{topicsAggregation.current && (
+							<TotalTopicsPieChart topicsObject={topicsAggregation.current} />
+						)}
+					</div>
+					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+						<h1 className="text-white px-2 py-1">
+							Authors With The Most Publications
+						</h1>
+						{authorsAggregation.current && (
+							<BarChart
+								topics={authorsAggregation.current}
+								dataType={"Authors"}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
 
-			{data && <AuthorsList posts={data.allPosts} />}
+			{data && <AuthorsList id="authors" posts={data.allPosts} />}
 		</div>
 	);
 }
