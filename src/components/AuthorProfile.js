@@ -3,7 +3,7 @@ import { useDataLayerValue } from "../react-context-api/DataLayer";
 import TopTopicsChart from "./top-topics-chart/TopTopicsChart";
 import MonthlyPostsChart from "./monthly-posts-chart/MonthlyPostsChart";
 import TotalTopicsPieChart from "./all-topics-chart/TotalTopicsPieChart";
-import LoadingComponent from "./LoadingComponent";
+import groupTopics from "../util/groupTopics";
 
 function AuthorProfile({ match }) {
 	const authorId = match.params.id;
@@ -12,7 +12,6 @@ function AuthorProfile({ match }) {
 	const authorProfile = authorMonthlyPosts.find(
 		(author) => author.id === authorId
 	);
-
 	const authorPosts = authors.find((author) => author.id === authorId);
 
 	const noOfPosts = authorProfile.monthlyPosts.reduce(
@@ -21,23 +20,6 @@ function AuthorProfile({ match }) {
 	);
 
 	const topicsObject = groupTopics(authorPosts.posts);
-
-	function groupTopics(tempPosts) {
-		let counts = {};
-		tempPosts?.forEach((post) => {
-			if (Array.isArray(post.likelyTopics))
-				counts[post.likelyTopics[0].label] =
-					1 + (counts[post.likelyTopics[0].label] || 0);
-			else
-				return (counts[post.likelyTopics] =
-					1 + (counts[post.likelyTopics] || 0));
-		});
-		return counts;
-	}
-
-	console.log("authorPosts: ", authorPosts);
-
-	console.log("topicsObject: ", topicsObject);
 
 	return (
 		<div className="container mx-auto my-10">
@@ -66,31 +48,23 @@ function AuthorProfile({ match }) {
 				</div>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2">
-				<div className="col-span-1 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
-					{authorProfile.monthlyPosts ? (
+				<div className="col-span-1 dark-card">
+					{authorProfile.monthlyPosts && (
 						<TopTopicsChart monthlyPosts={authorProfile.monthlyPosts} />
-					) : (
-						<LoadingComponent />
 					)}
 				</div>
-				<div className="col-span-1 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+				<div className="col-span-1 dark-card">
 					<h1 className="text-white px-2 py-1">
 						{`${authorProfile.author.firstName}'s`} posting frequency
 					</h1>
-					{authorProfile.monthlyPosts ? (
+					{authorProfile.monthlyPosts && (
 						<MonthlyPostsChart monthlyPosts={authorProfile.monthlyPosts} />
-					) : (
-						<LoadingComponent />
 					)}
 				</div>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2">
-				<div className="col-span-2  h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
-					{topicsObject ? (
-						<TotalTopicsPieChart topicsObject={topicsObject} />
-					) : (
-						<LoadingComponent />
-					)}
+				<div className="col-span-2 dark-card">
+					{topicsObject && <TotalTopicsPieChart topicsObject={topicsObject} />}
 				</div>
 			</div>
 		</div>

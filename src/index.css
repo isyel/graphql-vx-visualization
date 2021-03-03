@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.button {
+		@apply px-2 py-1 bg-white text-gray-800 m-2;
+	}
+
+	.dark-card {
+		@apply h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2;
+	}
+}

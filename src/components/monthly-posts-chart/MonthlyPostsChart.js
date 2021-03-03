@@ -107,7 +107,6 @@ function MonthlyPostsChart({
 					stroke="#ffffff"
 					strokeWidth={2}
 					strokeOpacity={0.6}
-					// curve={curveMonotoneX}
 				/>
 				<AreaClosed
 					x={(d) => xScale(getMonth(d))}
@@ -115,7 +114,6 @@ function MonthlyPostsChart({
 					data={posts}
 					yScale={yScale}
 					fill="url(#area-fill)"
-					// curve={curveMonotoneX}
 					stroke="transparent"
 				/>
 				<LinearGradient
@@ -195,10 +193,7 @@ function MonthlyPostsChart({
 			</svg>
 			{tooltipData && (
 				<div>
-					<Tooltip
-						top={tooltipTop - 35}
-						left={tooltipLeft}
-						className="bg-gray-500 text-white border-black border">
+					<Tooltip top={tooltipTop - 35} left={tooltipLeft}>
 						{`${getPost(tooltipData)} posts`}
 					</Tooltip>
 					<Tooltip left={tooltipLeft - 35} top={yScale(minPost) + 20}>

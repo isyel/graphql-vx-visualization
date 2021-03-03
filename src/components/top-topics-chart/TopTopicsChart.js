@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BarChart from "../bar-chart/BarChart";
+import BarChart from "./BarChart";
 import formatMonthToText from "../../util/formatMonthToText";
 
 function TopTopicsChart({ monthlyPosts }) {
@@ -29,13 +29,13 @@ function TopTopicsChart({ monthlyPosts }) {
 				</div>
 				<div className="flex justify-between px-4 h-12">
 					<button
-						className="px-2 py-1 bg-white text-gray-800 m-2 disabled:opacity-25 disabled:cursor-not-allowed"
+						className="button disabled:opacity-25 disabled:cursor-not-allowed"
 						onClick={() => setMonthIndex(monthIndex + 1)}
 						disabled={monthIndex >= monthlyPosts.length - 1}>
 						Previous Month
 					</button>
 					<button
-						className="px-2 py-1 bg-white text-gray-800 m-2 disabled:opacity-50 disabled:cursor-not-allowed"
+						className="button disabled:opacity-50 disabled:cursor-not-allowed"
 						onClick={() => setMonthIndex(monthIndex - 1)}
 						disabled={monthIndex <= 0}>
 						Next Month

@@ -3,6 +3,7 @@ import { useDataLayerValue } from "../react-context-api/DataLayer";
 import * as types from "../react-context-api/actionTypes";
 import formatMonth from "../util/formatMonth";
 import Author from "./Author";
+import groupTopics from "../util/groupTopics";
 
 function AuthorsList({ posts }) {
 	const [{ authors }, dispatch] = useDataLayerValue();
@@ -57,19 +58,6 @@ function AuthorsList({ posts }) {
 
 		dispatch({ type: types.SET_AUTHORS_MONTHLY_POSTS, authorMonthlyPosts });
 	}, [dispatch, posts]);
-
-	function groupTopics(tempPosts) {
-		let counts = {};
-		tempPosts?.forEach((post) => {
-			if (Array.isArray(post.likelyTopics))
-				counts[post.likelyTopics[0].label] =
-					1 + (counts[post.likelyTopics[0].label] || 0);
-			else
-				return (counts[post.likelyTopics] =
-					1 + (counts[post.likelyTopics] || 0));
-		});
-		return counts;
-	}
 
 	return (
 		<div className="px-2">

@@ -7,9 +7,10 @@ import * as types from "../react-context-api/actionTypes";
 import TopTopicsChart from "./top-topics-chart/TopTopicsChart";
 import MonthlyPostsChart from "./monthly-posts-chart/MonthlyPostsChart";
 import TotalTopicsPieChart from "./all-topics-chart/TotalTopicsPieChart";
-import BarChart from "./bar-chart/BarChart";
+import BarChart from "./top-topics-chart/BarChart";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
+import groupTopics from "../util/groupTopics";
 
 const POSTS_QUERY = gql`
 	query PostsQuery($count: Int!) {
@@ -42,19 +43,6 @@ function Dashboard() {
 
 	const topicsAggregation = useRef(null);
 	const authorsAggregation = useRef(null);
-
-	function groupTopics(tempPosts) {
-		let counts = {};
-		tempPosts?.forEach((post) => {
-			if (Array.isArray(post.likelyTopics))
-				counts[post.likelyTopics[0].label] =
-					1 + (counts[post.likelyTopics[0].label] || 0);
-			else
-				return (counts[post.likelyTopics] =
-					1 + (counts[post.likelyTopics] || 0));
-		});
-		return counts;
-	}
 
 	useEffect(() => {
 		if (data) {
@@ -96,7 +84,7 @@ function Dashboard() {
 		<div className="container mx-auto my-10">
 			<div className="my-5">
 				<div className="grid grid-cols-2">
-					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+					<div className="dark-card md:col-span-1 col-span-2">
 						{topPostsOfTheMonth.length > 0 ? (
 							<TopTopicsChart monthlyPosts={topPostsOfTheMonth} />
 						) : error ? (
@@ -107,7 +95,7 @@ function Dashboard() {
 
 						{}
 					</div>
-					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+					<div className="dark-card md:col-span-1 col-span-2">
 						<h1 className="text-white px-2 py-1">
 							Posts Published In the Last 12 Months
 						</h1>
@@ -121,7 +109,7 @@ function Dashboard() {
 					</div>
 				</div>
 				<div className="grid grid-cols-2">
-					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+					<div className="dark-card md:col-span-1 col-span-2">
 						{topicsAggregation.current ? (
 							<TotalTopicsPieChart topicsObject={topicsAggregation.current} />
 						) : error ? (
@@ -130,9 +118,9 @@ function Dashboard() {
 							<LoadingComponent />
 						)}
 					</div>
-					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+					<div className="dark-card md:col-span-1 col-span-2">
 						<h1 className="text-white px-2 py-1">
-							Authors With The Most Publications
+							Top 6 Authors With The Most Publications
 						</h1>
 						{authorsAggregation.current ? (
 							<BarChart
