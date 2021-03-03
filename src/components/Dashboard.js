@@ -4,10 +4,12 @@ import formatMonth from "../util/formatMonth";
 import AuthorsList from "./AuthorsList";
 import { useDataLayerValue } from "../react-context-api/DataLayer";
 import * as types from "../react-context-api/actionTypes";
-import TopTopicsChart from "./TopTopicsChart";
-import MonthlyPostsChart from "./MonthlyPostsChart";
-import TotalTopicsPieChart from "./TotalTopicsPieChart";
-import BarChart from "./BarChart";
+import TopTopicsChart from "./top-topics-chart/TopTopicsChart";
+import MonthlyPostsChart from "./monthly-posts-chart/MonthlyPostsChart";
+import TotalTopicsPieChart from "./all-topics-chart/TotalTopicsPieChart";
+import BarChart from "./bar-chart/BarChart";
+import LoadingComponent from "./LoadingComponent";
+import ErrorComponent from "./ErrorComponent";
 
 const POSTS_QUERY = gql`
 	query PostsQuery($count: Int!) {
@@ -34,7 +36,7 @@ const POSTS_QUERY = gql`
 function Dashboard() {
 	const [{ topPostsOfTheMonth, authors }, dispatch] = useDataLayerValue();
 
-	const { loading, error, data } = useQuery(POSTS_QUERY, {
+	const { error, data } = useQuery(POSTS_QUERY, {
 		variables: { count: 200 },
 	});
 
@@ -87,45 +89,60 @@ function Dashboard() {
 					}))
 					.sort((author1, author2) => author2.frequency - author1.frequency)
 					.slice(0, 6);
-			console.log("Authors: ", authorsAggregation.current);
 		}
 	}, [dispatch, data, authors]);
 
 	return (
 		<div className="container mx-auto my-10">
 			<div className="my-5">
-				{loading && <p>Loading...</p>}
-				{error && <p>Error :(</p>}
 				<div className="grid grid-cols-2">
 					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
-						{topPostsOfTheMonth.length > 0 && (
+						{topPostsOfTheMonth.length > 0 ? (
 							<TopTopicsChart monthlyPosts={topPostsOfTheMonth} />
+						) : error ? (
+							<ErrorComponent />
+						) : (
+							<LoadingComponent />
 						)}
+
+						{}
 					</div>
 					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
 						<h1 className="text-white px-2 py-1">
 							Posts Published In the Last 12 Months
 						</h1>
-						{topPostsOfTheMonth.length > 0 && (
+						{topPostsOfTheMonth.length > 0 ? (
 							<MonthlyPostsChart monthlyPosts={topPostsOfTheMonth} />
+						) : error ? (
+							<ErrorComponent />
+						) : (
+							<LoadingComponent />
 						)}
 					</div>
 				</div>
 				<div className="grid grid-cols-2">
 					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
-						{topicsAggregation.current && (
+						{topicsAggregation.current ? (
 							<TotalTopicsPieChart topicsObject={topicsAggregation.current} />
+						) : error ? (
+							<ErrorComponent />
+						) : (
+							<LoadingComponent />
 						)}
 					</div>
 					<div className="md:col-span-1 col-span-2 h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
 						<h1 className="text-white px-2 py-1">
 							Authors With The Most Publications
 						</h1>
-						{authorsAggregation.current && (
+						{authorsAggregation.current ? (
 							<BarChart
 								topics={authorsAggregation.current}
 								dataType={"Authors"}
 							/>
+						) : error ? (
+							<ErrorComponent />
+						) : (
+							<LoadingComponent />
 						)}
 					</div>
 				</div>

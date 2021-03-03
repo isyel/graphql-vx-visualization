@@ -72,8 +72,8 @@ function AuthorsList({ posts }) {
 	}
 
 	return (
-		<div>
-			<h1 className="text-3xl font-bold pl-2">Posts Authors</h1>
+		<div className="px-2">
+			<h1 className="text-3xl font-bold pl-2">Posts' Authors</h1>
 			{authors.map((authorObject, key) => (
 				<Author
 					key={key}

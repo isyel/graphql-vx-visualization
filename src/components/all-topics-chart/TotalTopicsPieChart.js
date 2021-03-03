@@ -98,7 +98,7 @@ function TotalTopicsPieChart({
 						fontSize={11}
 						fontWeight={300}
 						pointerEvents="none">
-						Click segments to update
+						Click segments to view in full
 					</text>
 				)}
 			</svg>

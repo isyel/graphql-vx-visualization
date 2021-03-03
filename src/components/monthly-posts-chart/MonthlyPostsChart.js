@@ -10,7 +10,7 @@ import { bisector } from "d3-array";
 import { localPoint } from "@vx/event";
 import MaxPrice from "./MaxPrice";
 import MinPrice from "./MinPrice";
-import formatMonthToText from "../util/formatMonthToText";
+import formatMonthToText from "../../util/formatMonthToText";
 
 function MonthlyPostsChart({
 	parentWidth,

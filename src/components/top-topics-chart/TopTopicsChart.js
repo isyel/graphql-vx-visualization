@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import BarChart from "./BarChart";
-import formatMonthToText from "../util/formatMonthToText";
+import BarChart from "../bar-chart/BarChart";
+import formatMonthToText from "../../util/formatMonthToText";
 
 function TopTopicsChart({ monthlyPosts }) {
 	const [monthIndex, setMonthIndex] = useState(0);
@@ -20,7 +20,7 @@ function TopTopicsChart({ monthlyPosts }) {
 	return (
 		<>
 			<h1 className="text-white px-2 py-1">
-				Top Posts for the Month of{" "}
+				Top Topics for the Month of{" "}
 				{formatMonthToText(new Date(monthlyPosts[monthIndex].date))}
 			</h1>
 			<div className="flex flex-col h-5/6">

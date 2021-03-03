@@ -13,7 +13,7 @@ function MinPrice({ posts, label, yText, yScale, xScale, getMonth, getPost }) {
 				strokeDasharray={(4, 4)}
 			/>
 			<text y={yText} fontSize="8" fill="white" dy="-0.5em" dx="1em">
-				{`${label} posts`}
+				{`${label} post${parseInt(label) > 1 ? "s" : ""}`}
 			</text>
 		</g>
 	);

@@ -32,7 +32,7 @@ export default function AnimatedPie({
 		<>
 			{transitions.map(({ item: arc, props, key }) => {
 				const [centroidX, centroidY] = path.centroid(arc);
-				const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.1;
+				const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.15;
 
 				return (
 					<g key={key}>
@@ -58,7 +58,7 @@ export default function AnimatedPie({
 									x={centroidX}
 									y={centroidY}
 									dy=".33em"
-									fontSize={9}
+									fontSize={10}
 									textAnchor="middle"
 									pointerEvents="none">
 									{getKey(arc)}
