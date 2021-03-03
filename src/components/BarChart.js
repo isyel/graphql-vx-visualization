@@ -34,7 +34,7 @@ function BarChart({ topics, parentWidth, dataType }) {
 
 	return (
 		<div style={{ width: "100%", height: "100%" }} className="relative">
-			<div className="absolute left-2/3 lg:left-2/3 lg:pl-12 xl:pl-44 xl:left-2/4 bg-opacity-30 bg-black p-1 rounded-lg">
+			<div className="absolute left-2/3 lg:left-2/3 lg:ml-12 xl:ml-44 xl:left-2/4 bg-opacity-30 bg-black p-1 rounded-lg">
 				<h4 className="text-white">Top 3 {dataType}</h4>
 				<div className="flex flex-col text-white font-light text-xs">
 					{topics &&

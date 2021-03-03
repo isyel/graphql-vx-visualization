@@ -3,19 +3,41 @@ import { useDataLayerValue } from "../react-context-api/DataLayer";
 import avatar from "../image/avatar.jpg";
 import TopTopicsChart from "./TopTopicsChart";
 import MonthlyPostsChart from "./MonthlyPostsChart";
+import TotalTopicsPieChart from "./TotalTopicsPieChart";
 
 function AuthorProfile({ match }) {
 	const authorId = match.params.id;
-	const [{ authorMonthlyPosts }] = useDataLayerValue();
+	const [{ authorMonthlyPosts, authors }] = useDataLayerValue();
 
 	const authorProfile = authorMonthlyPosts.find(
 		(author) => author.id === authorId
 	);
 
+	const authorPosts = authors.find((author) => author.id === authorId);
+
 	const noOfPosts = authorProfile.monthlyPosts.reduce(
 		(sum, post) => sum + post.posts.length,
 		0
 	);
+
+	const topicsObject = groupTopics(authorPosts.posts);
+
+	function groupTopics(tempPosts) {
+		let counts = {};
+		tempPosts?.forEach((post) => {
+			if (Array.isArray(post.likelyTopics))
+				counts[post.likelyTopics[0].label] =
+					1 + (counts[post.likelyTopics[0].label] || 0);
+			else
+				return (counts[post.likelyTopics] =
+					1 + (counts[post.likelyTopics] || 0));
+		});
+		return counts;
+	}
+
+	console.log("authorPosts: ", authorPosts);
+
+	console.log("topicsObject: ", topicsObject);
 
 	return (
 		<div className="container mx-auto my-10">
@@ -57,6 +79,11 @@ function AuthorProfile({ match }) {
 					{authorProfile.monthlyPosts && (
 						<MonthlyPostsChart monthlyPosts={authorProfile.monthlyPosts} />
 					)}
+				</div>
+			</div>
+			<div className="grid grid-cols-1 md:grid-cols-2">
+				<div className="col-span-2  h-96 bg-gradient-to-br rounded-md from-gray-800 bg-black m-2">
+					{topicsObject && <TotalTopicsPieChart topicsObject={topicsObject} />}
 				</div>
 			</div>
 		</div>

@@ -25,14 +25,9 @@ function TotalTopicsPieChart({
 		.sort((topic1, topic2) => topic2.frequency - topic1.frequency);
 	const topicNames = topics.map((topic) => topic.topic);
 
-	console.log("topicNames: ", topicNames);
-	console.log("topics: ", topics);
-
 	const getTopicColor = scaleOrdinal({
 		domain: topicNames,
 		range: [
-			"rgba(255,255,255,0.65)",
-			"rgba(255,255,255,0.6)",
 			"rgba(255,255,255,0.55)",
 			"rgba(255,255,255,0.5)",
 			"rgba(255,255,255,0.45)",
@@ -40,9 +35,12 @@ function TotalTopicsPieChart({
 			"rgba(255,255,255,0.35)",
 			"rgba(255,255,255,0.3)",
 			"rgba(255,255,255,0.25)",
+			"rgba(255,255,255,0.2)",
+			"rgba(255,255,255,0.15)",
 			"rgba(255,255,255,0.1)",
 		],
 	});
+
 	if (parentWidth < 10) return null;
 
 	const innerWidth = parentWidth - margin.left - margin.right;

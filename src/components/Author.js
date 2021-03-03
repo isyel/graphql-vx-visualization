@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Author({ author, posts }) {
 	return (
 		<>
-			<div className="bg-gray-200 mx-2 my-4 p-2 rounded-lg grid grid-cols-4">
+			<div className="bg-gray-200 mx-2 my-5 p-2 rounded-lg grid grid-cols-4">
 				<div className="col-span-3 flex justify-items-start items-center">
 					<img
 						src="https://s3.amazonaws.com/uifaces/faces/twitter/jacobbennett/128.jpg"
