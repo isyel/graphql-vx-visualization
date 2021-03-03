@@ -54,13 +54,6 @@ function Dashboard() {
 		return counts;
 	}
 
-	function mapTopics(arrayObject) {
-		return Object.keys(arrayObject).map((key) => ({
-			topic: key,
-			frequency: arrayObject[key],
-		}));
-	}
-
 	useEffect(() => {
 		if (data) {
 			const topPostOfTheMonth = data.allPosts
@@ -137,8 +130,7 @@ function Dashboard() {
 					</div>
 				</div>
 			</div>
-
-			{data && <AuthorsList id="authors" posts={data.allPosts} />}
+			<div id="authors">{data && <AuthorsList posts={data.allPosts} />}</div>
 		</div>
 	);
 }

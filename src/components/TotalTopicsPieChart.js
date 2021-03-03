@@ -1,7 +1,6 @@
 import { scaleOrdinal } from "@vx/scale";
 import React, { useState } from "react";
 import { withParentSize } from "@vx/responsive";
-import { GradientPinkBlue } from "@vx/gradient";
 import { Group } from "@vx/group";
 import AnimatedPie from "./AnimatedPie";
 import { Pie } from "@vx/shape";

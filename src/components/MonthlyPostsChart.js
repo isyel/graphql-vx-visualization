@@ -8,6 +8,8 @@ import { AxisBottom } from "@vx/axis";
 import { Tooltip, withTooltip } from "@vx/tooltip";
 import { bisector } from "d3-array";
 import { localPoint } from "@vx/event";
+import MaxPrice from "./MaxPrice";
+import MinPrice from "./MinPrice";
 import formatMonthToText from "../util/formatMonthToText";
 
 function MonthlyPostsChart({
@@ -47,6 +49,27 @@ function MonthlyPostsChart({
 	});
 	const minPost = Math.min(...posts.map(getPost));
 	const maxPost = Math.max(...posts.map(getPost));
+	const maxPostData = [
+		{
+			date: getMonth(posts[0]),
+			posts: maxPost,
+		},
+		{
+			date: getMonth(posts[posts.length - 1]),
+			posts: maxPost,
+		},
+	];
+	const minPostData = [
+		{
+			date: getMonth(posts[0]),
+			posts: minPost,
+		},
+		{
+			date: getMonth(posts[posts.length - 1]),
+			posts: minPost,
+		},
+	];
+
 	const yScale = scaleLinear({
 		range: [height, 0],
 		domain: [minPost, maxPost],
@@ -102,6 +125,24 @@ function MonthlyPostsChart({
 					fromOpacity={1}
 					toOpacity={0.3}
 				/>
+				<MaxPrice
+					posts={maxPostData}
+					yScale={yScale}
+					xScale={xScale}
+					getPost={getPost}
+					getMonth={getMonth}
+					label={maxPost}
+					yText={yScale(maxPost)}
+				/>
+				<MinPrice
+					posts={minPostData}
+					yScale={yScale}
+					xScale={xScale}
+					getPost={getPost}
+					getMonth={getMonth}
+					label={minPost}
+					yText={yScale(minPost)}
+				/>
 				<AxisBottom
 					data={posts}
 					scale={xScale}
@@ -128,7 +169,7 @@ function MonthlyPostsChart({
 					<g>
 						<Line
 							from={{ x: tooltipLeft, y: 0 }}
-							to={{ x: tooltipLeft, y: height }}
+							to={{ x: tooltipLeft, y: height + 30 }}
 							stroke="#ffffff"
 							strokeWidth={1}
 							pointerEvents="none"

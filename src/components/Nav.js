@@ -49,11 +49,13 @@ const Nav = () => {
 					</div>
 					<div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
 						<div className="flex-shrink-0 flex items-center">
-							<img
-								className=" h-8 w-auto"
-								src="https://uploads-ssl.webflow.com/5e662485415f1e0e1e4e57ac/5eda1dad88d55ad9e1093f9b_nPlanlogowhite-01.svg"
-								alt="Workflow"
-							/>
+							<Link to="/">
+								<img
+									className=" h-8 w-auto"
+									src="https://uploads-ssl.webflow.com/5e662485415f1e0e1e4e57ac/5eda1dad88d55ad9e1093f9b_nPlanlogowhite-01.svg"
+									alt="Workflow"
+								/>
+							</Link>
 						</div>
 						<div className="hidden sm:block sm:ml-6">
 							<div className="flex space-x-4">
@@ -62,9 +64,11 @@ const Nav = () => {
 									className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
 									Posts
 								</Link>
-								<button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+								<a
+									href="/#authors"
+									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
 									Authors
-								</button>
+								</a>
 							</div>
 						</div>
 					</div>

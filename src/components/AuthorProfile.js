@@ -20,7 +20,7 @@ function AuthorProfile({ match }) {
 	return (
 		<div className="container mx-auto my-10">
 			<div className="flex flex-row justify-between items-center pb-16 px-10">
-				<div className="flex flex-row items-center justify-items-start w-2/3">
+				<div className="flex flex-col sm:flex-row items-center justify-items-start w-2/3">
 					<img
 						className="rounded-md w-16 mr-8"
 						src={avatar}
