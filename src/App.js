@@ -1,6 +1,5 @@
 import Dashboard from "./components/Dashboard";
 import AuthorProfile from "./components/AuthorProfile";
-import "./App.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav";
@@ -12,7 +11,7 @@ const client = new ApolloClient({
 
 function App() {
 	return (
-		<div className="App">
+		<div>
 			<ApolloProvider client={client}>
 				<Router>
 					<Nav />

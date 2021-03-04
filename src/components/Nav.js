@@ -64,11 +64,12 @@ const Nav = () => {
 									className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
 									Posts
 								</Link>
-								<a
-									href="/#authors"
+
+								<Link
+									to="/#authors"
 									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
 									Authors
-								</a>
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -148,11 +149,11 @@ const Nav = () => {
 						className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
 						Posts
 					</Link>
-					<a
-						href="/#authors"
+					<Link
+						to="/#authors"
 						className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
 						Authors
-					</a>
+					</Link>
 				</div>
 			</div>
 		</nav>

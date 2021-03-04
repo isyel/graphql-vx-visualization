@@ -52,7 +52,9 @@ function TotalTopicsPieChart({
 
 	return (
 		<div>
-			<h1 className="text-white px-2 py-1">Posts Per Most Likely Topic</h1>
+			<h1 className="text-white px-2 py-1">
+				Posts Assigned to Most Likely Topic
+			</h1>
 			<svg width={parentWidth} height={parentHeight}>
 				<rect
 					rx={14}
