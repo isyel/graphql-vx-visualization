@@ -2,7 +2,7 @@ import * as types from "./actionTypes";
 
 export const initialState = {
 	authors: [],
-	topPostsOfTheMonth: [],
+	postsOfTheMonth: [],
 	authorMonthlyPosts: [],
 };
 
@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 		case types.SET_TOP_POSTS:
 			return {
 				...state,
-				topPostsOfTheMonth: action.topPosts,
+				postsOfTheMonth: action.topPosts,
 			};
 		default:
 			return state;

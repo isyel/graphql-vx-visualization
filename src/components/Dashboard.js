@@ -35,7 +35,7 @@ const POSTS_QUERY = gql`
 `;
 
 function Dashboard() {
-	const [{ topPostsOfTheMonth, authors }, dispatch] = useDataLayerValue();
+	const [{ postsOfTheMonth, authors }, dispatch] = useDataLayerValue();
 
 	const { error, data } = useQuery(POSTS_QUERY, {
 		variables: { count: 200 },
@@ -85,22 +85,22 @@ function Dashboard() {
 			<div className="my-5">
 				<div className="grid grid-cols-2">
 					<div className="dark-card md:col-span-1 col-span-2">
-						{topPostsOfTheMonth.length > 0 ? (
-							<TopTopicsChart monthlyPosts={topPostsOfTheMonth} />
+						{postsOfTheMonth.length > 0 ? (
+							<TopTopicsChart monthlyPosts={postsOfTheMonth} />
 						) : error ? (
 							<ErrorComponent />
 						) : (
 							<LoadingComponent />
 						)}
-
-						{}
 					</div>
 					<div className="dark-card md:col-span-1 col-span-2">
-						<h1 className="text-white px-2 py-1">
-							Posts Published In the Last 12 Months
-						</h1>
-						{topPostsOfTheMonth.length > 0 ? (
-							<MonthlyPostsChart monthlyPosts={topPostsOfTheMonth} />
+						{postsOfTheMonth.length > 0 ? (
+							<>
+								<h1 className="text-white px-2 py-1">
+									Posts Published In the Last 12 Months
+								</h1>
+								<MonthlyPostsChart monthlyPosts={postsOfTheMonth} />
+							</>
 						) : error ? (
 							<ErrorComponent />
 						) : (
@@ -119,14 +119,16 @@ function Dashboard() {
 						)}
 					</div>
 					<div className="dark-card md:col-span-1 col-span-2">
-						<h1 className="text-white px-2 py-1">
-							Top 6 Authors With The Most Publications
-						</h1>
 						{authorsAggregation.current ? (
-							<BarChart
-								topics={authorsAggregation.current}
-								dataType={"Authors"}
-							/>
+							<>
+								<h1 className="text-white px-2 py-1">
+									Top 6 Authors With The Most Publications
+								</h1>
+								<BarChart
+									topics={authorsAggregation.current}
+									dataType={"Authors"}
+								/>
+							</>
 						) : error ? (
 							<ErrorComponent />
 						) : (
