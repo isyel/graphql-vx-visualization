@@ -1,8 +1,9 @@
 # GraphQL Visualization Using VX
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To enable tailwindCSS configuration we Install and configure CRACO `npm install @craco/craco`
 
-Project Live Link: [Visit Site](https://github.com/facebook/create-react-app)
+Project Live Link: [Visit Site](https://graphql-vx-visualization.vercel.app/)
 
 ## _Solution Process_
 
