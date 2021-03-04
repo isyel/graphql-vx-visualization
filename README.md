@@ -93,13 +93,13 @@ Managed data like authors list and structure of author
 
 ### _Challenges_
 
-_Managing using data across pages without having to call the graphQL API over and over again._
+**Managing data across pages without having to call the graphQL API over and over again**
 
-I resorted to using Context API to solve this, as useState and passing props down could not cut it.
+- I resorted to using Context API to solve this, as useState and passing props down could not cut it.
 
 ### _Suggestions on API_
 
-An author query structure that returns and Array of each author and the posts that belong to them, that would come in handy and would not require a mapping and filtering to create the data array for authors and their posts, the server can handle that complexity.
+An author query structure that returns an Array of authors and their posts: This would be handy and would not require mapping and filtering to create the data array for authors and their posts. The server handles that complexity.
 
 ## Available Scripts
 
