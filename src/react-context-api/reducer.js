@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 				...state,
 				authorMonthlyPosts: action.authorMonthlyPosts,
 			};
-		case types.SET_TOP_POSTS:
+		case types.SET_POSTS_PER_MONTH:
 			return {
 				...state,
 				postsOfTheMonth: action.topPosts,

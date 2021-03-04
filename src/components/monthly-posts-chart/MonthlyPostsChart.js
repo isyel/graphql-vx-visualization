@@ -8,8 +8,7 @@ import { AxisBottom } from "@vx/axis";
 import { Tooltip, withTooltip } from "@vx/tooltip";
 import { bisector } from "d3-array";
 import { localPoint } from "@vx/event";
-import MaxPrice from "./MaxPrice";
-import MinPrice from "./MinPrice";
+import RangeLabel from "./RangeLabel";
 import formatMonthToText from "../../util/formatMonthToText";
 
 function MonthlyPostsChart({
@@ -123,7 +122,7 @@ function MonthlyPostsChart({
 					fromOpacity={1}
 					toOpacity={0.3}
 				/>
-				<MaxPrice
+				<RangeLabel
 					posts={maxPostData}
 					yScale={yScale}
 					xScale={xScale}
@@ -131,8 +130,9 @@ function MonthlyPostsChart({
 					getMonth={getMonth}
 					label={maxPost}
 					yText={yScale(maxPost)}
+					dy={"1.3em"}
 				/>
-				<MinPrice
+				<RangeLabel
 					posts={minPostData}
 					yScale={yScale}
 					xScale={xScale}
@@ -140,6 +140,7 @@ function MonthlyPostsChart({
 					getMonth={getMonth}
 					label={minPost}
 					yText={yScale(minPost)}
+					dy={"-0.5em"}
 				/>
 				<AxisBottom
 					data={posts}

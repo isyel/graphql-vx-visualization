@@ -66,7 +66,10 @@ function Dashboard() {
 						)
 				);
 
-			dispatch({ type: types.SET_TOP_POSTS, topPosts: topPostOfTheMonth });
+			dispatch({
+				type: types.SET_POSTS_PER_MONTH,
+				topPosts: topPostOfTheMonth,
+			});
 
 			topicsAggregation.current = groupTopics(data.allPosts);
 			if (authors)
@@ -127,6 +130,7 @@ function Dashboard() {
 								<BarChart
 									topics={authorsAggregation.current}
 									dataType={"Authors"}
+									showLegend={false}
 								/>
 							</>
 						) : error ? (

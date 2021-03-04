@@ -1,6 +1,15 @@
 import { LinePath } from "@vx/shape";
 
-function MaxPrice({ posts, label, yText, yScale, xScale, getMonth, getPost }) {
+function MinPrice({
+	posts,
+	label,
+	yText,
+	yScale,
+	xScale,
+	getMonth,
+	getPost,
+	dy,
+}) {
 	return (
 		<g>
 			<LinePath
@@ -12,11 +21,11 @@ function MaxPrice({ posts, label, yText, yScale, xScale, getMonth, getPost }) {
 				strokeOpacity={0.4}
 				strokeDasharray={(4, 4)}
 			/>
-			<text y={yText} fontSize="8" fill="white" dy="1.3em" dx="1em">
-				{`${label} posts`}
+			<text y={yText} fontSize="8" fill="white" dy={dy} dx="1em">
+				{`${label} post${parseInt(label) > 1 ? "s" : ""}`}
 			</text>
 		</g>
 	);
 }
 
-export default MaxPrice;
+export default MinPrice;

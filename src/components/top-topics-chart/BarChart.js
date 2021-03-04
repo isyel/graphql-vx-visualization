@@ -11,7 +11,7 @@ const getTopics = (d) => d.label;
 const getFrequency = (d) => d.frequency;
 export const labelColor = "#ffffff";
 
-function BarChart({ topics, parentWidth, dataType }) {
+function BarChart({ topics, parentWidth, dataType, showLegend = true }) {
 	const width = parentWidth;
 	const height = 302;
 
@@ -34,22 +34,24 @@ function BarChart({ topics, parentWidth, dataType }) {
 
 	return (
 		<div style={{ width: "100%", height: "100%" }} className="relative">
-			<div className="absolute left-1/2 ml-6 lg:left-2/3 lg:ml-12 xl:ml-44 xl:left-2/4 bg-opacity-30 bg-black p-1 rounded-lg">
-				<h4 className="text-white text-sm">Top 3 {dataType}</h4>
-				<div className="flex flex-col text-white font-light text-xs">
-					{topics &&
-						// eslint-disable-next-line array-callback-return
-						topics.map((label, index) => {
-							if (index < 3)
-								return (
-									<span
-										key={
-											index
-										}>{`${label.label} - ${label.frequency} posts`}</span>
-								);
-						})}
+			{showLegend && (
+				<div className="absolute left-1/2 ml-6 lg:left-2/3 lg:ml-8 xl:ml-44 xl:left-2/4 bg-opacity-30 bg-black p-1 rounded-lg">
+					<h4 className="text-white text-sm">Top 3 {dataType}</h4>
+					<div className="flex flex-col text-white font-light text-xs">
+						{topics &&
+							// eslint-disable-next-line array-callback-return
+							topics.map((label, index) => {
+								if (index < 3)
+									return (
+										<span
+											key={
+												index
+											}>{`${label.label} - ${label.frequency} posts`}</span>
+									);
+							})}
+					</div>
 				</div>
-			</div>
+			)}
 			<svg width={width} height={height}>
 				<LinearGradient from={`#ffffff`} to={`#000000`} id={`gradient`} />
 				<rect width={width} height={height} fill="transparent" rx={5} />
