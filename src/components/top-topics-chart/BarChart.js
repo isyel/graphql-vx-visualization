@@ -41,16 +41,14 @@ function BarChart({ topics, parentWidth, dataType, showLegend = true }) {
 					</h4>
 					<div className="flex flex-col text-white font-light text-xs">
 						{topics &&
-							// eslint-disable-next-line array-callback-return
-							topics.map((label, index) => {
-								if (index < 3)
-									return (
-										<span
-											key={
-												index
-											}>{`${label.label} - ${label.frequency} posts`}</span>
-									);
-							})}
+							topics
+								.slice(0, 3)
+								.map((label, index) => (
+									<span
+										key={
+											index
+										}>{`${label.label} - ${label.frequency} posts`}</span>
+								))}
 					</div>
 				</div>
 			)}
