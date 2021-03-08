@@ -5,6 +5,7 @@ import MonthlyPostsChart from "./monthly-posts-chart/MonthlyPostsChart";
 import TotalTopicsPieChart from "./all-topics-chart/TotalTopicsPieChart";
 import groupTopics from "../util/groupTopics";
 import { Link } from "react-router-dom";
+import VisualCard from "./VisualCard";
 
 function AuthorProfile({ match }) {
 	const authorId = match.params.id;
@@ -17,7 +18,7 @@ function AuthorProfile({ match }) {
 
 	const topicsObject = groupTopics(authorPosts?.posts);
 
-	return authorMonthlyPosts.length > 0 ? (
+	return authorMonthlyPosts ? (
 		<div className="container mx-auto my-10">
 			<div className="flex flex-row justify-between items-center pb-8 px-4 md:px-10">
 				<div className="flex flex-col sm:flex-row items-start justify-items-start w-2/3">
@@ -32,36 +33,37 @@ function AuthorProfile({ match }) {
 							{authorProfile?.author?.lastName}
 						</h1>
 						<p>
-							Last Publication: <span>{authorPosts.posts[0].title}</span>
+							Last Publication: <span>{authorPosts?.posts[0]?.title}</span>
 						</p>
 					</div>
 				</div>
 				<div className="flex flex-col sm:flex-row items-center">
 					<span className="text-3xl font-bold text-gray-800 pr-1">
-						{authorPosts.posts.length}
+						{authorPosts?.posts?.length}
 					</span>
 					<span className="text-base font-light text-gray-600">Posts</span>
 				</div>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2">
-				<div className="col-span-1 dark-card">
+				<VisualCard>
 					{authorProfile?.monthlyPosts && (
 						<TopTopicsChart monthlyPosts={authorProfile?.monthlyPosts} />
 					)}
-				</div>
-				<div className="col-span-1 dark-card">
+				</VisualCard>
+
+				<VisualCard>
 					<h1 className="text-white px-2 py-1">
 						{`${authorProfile?.author?.firstName}'s`} posting frequency
 					</h1>
 					{authorProfile?.monthlyPosts && (
 						<MonthlyPostsChart monthlyPosts={authorProfile?.monthlyPosts} />
 					)}
-				</div>
+				</VisualCard>
 			</div>
-			<div className="grid grid-cols-1 md:grid-cols-2">
-				<div className="col-span-2 dark-card">
+			<div className="grid grid-cols-2 md:grid-cols-1">
+				<VisualCard>
 					{topicsObject && <TotalTopicsPieChart topicsObject={topicsObject} />}
-				</div>
+				</VisualCard>
 			</div>
 		</div>
 	) : (

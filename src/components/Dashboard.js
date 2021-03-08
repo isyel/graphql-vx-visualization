@@ -11,6 +11,7 @@ import BarChart from "./top-topics-chart/BarChart";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
 import groupTopics from "../util/groupTopics";
+import VisualCard from "./VisualCard";
 
 const POSTS_QUERY = gql`
 	query PostsQuery($count: Int!) {
@@ -87,7 +88,7 @@ function Dashboard() {
 		<div className="container mx-auto my-10">
 			<div className="my-5">
 				<div className="grid grid-cols-2">
-					<div className="dark-card md:col-span-1 col-span-2">
+					<VisualCard>
 						{postsOfTheMonth.length > 0 ? (
 							<TopTopicsChart monthlyPosts={postsOfTheMonth} />
 						) : error ? (
@@ -95,8 +96,9 @@ function Dashboard() {
 						) : (
 							<LoadingComponent />
 						)}
-					</div>
-					<div className="dark-card md:col-span-1 col-span-2">
+					</VisualCard>
+
+					<VisualCard>
 						{postsOfTheMonth.length > 0 ? (
 							<>
 								<h1 className="text-white px-2 py-1">
@@ -109,10 +111,10 @@ function Dashboard() {
 						) : (
 							<LoadingComponent />
 						)}
-					</div>
+					</VisualCard>
 				</div>
 				<div className="grid grid-cols-2">
-					<div className="dark-card md:col-span-1 col-span-2">
+					<VisualCard>
 						{topicsAggregation.current ? (
 							<TotalTopicsPieChart topicsObject={topicsAggregation.current} />
 						) : error ? (
@@ -120,8 +122,9 @@ function Dashboard() {
 						) : (
 							<LoadingComponent />
 						)}
-					</div>
-					<div className="dark-card md:col-span-1 col-span-2">
+					</VisualCard>
+
+					<VisualCard>
 						{authorsAggregation.current ? (
 							<>
 								<h1 className="text-white px-2 py-1">
@@ -138,7 +141,7 @@ function Dashboard() {
 						) : (
 							<LoadingComponent />
 						)}
-					</div>
+					</VisualCard>
 				</div>
 			</div>
 			<div id="authors">{data && <AuthorsList posts={data.allPosts} />}</div>
