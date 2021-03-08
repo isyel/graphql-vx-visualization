@@ -18,7 +18,7 @@ function AuthorProfile({ match }) {
 
 	const topicsObject = groupTopics(authorPosts?.posts);
 
-	return authorMonthlyPosts ? (
+	return authorMonthlyPosts.length > 0 ? (
 		<div className="container mx-auto my-10">
 			<div className="flex flex-row justify-between items-center pb-8 px-4 md:px-10">
 				<div className="flex flex-col sm:flex-row items-start justify-items-start w-2/3">
