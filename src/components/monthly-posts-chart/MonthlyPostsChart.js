@@ -120,7 +120,7 @@ function MonthlyPostsChart({
 					from="#777782"
 					to="#000000"
 					fromOpacity={1}
-					toOpacity={0.6}
+					toOpacity={0.4}
 				/>
 				<RangeLabel
 					posts={maxPostData}
@@ -147,8 +147,9 @@ function MonthlyPostsChart({
 					scale={xScale}
 					x={getMonth}
 					numTicks={6}
+					stroke="#ffffff66"
+					tickStroke="#ffffff66"
 					top={yScale(0) + 20}
-					hideAxisLine
 					tickLabelProps={() => ({
 						fill: "white",
 						fontSize: "9px",
