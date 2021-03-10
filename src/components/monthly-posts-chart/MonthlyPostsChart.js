@@ -46,7 +46,7 @@ function MonthlyPostsChart({
 		range: [0, width],
 		domain: extent(posts, getMonth),
 	});
-	const minPost = 0;
+	const minPost = Math.min(...posts.map(getPost));
 	const maxPost = Math.max(...posts.map(getPost));
 	const maxPostData = [
 		{
@@ -71,7 +71,7 @@ function MonthlyPostsChart({
 
 	const yScale = scaleLinear({
 		range: [height, 0],
-		domain: [minPost, maxPost],
+		domain: [0, maxPost],
 		nice: true,
 	});
 
@@ -147,7 +147,7 @@ function MonthlyPostsChart({
 					scale={xScale}
 					x={getMonth}
 					numTicks={6}
-					top={yScale(minPost) + 20}
+					top={yScale(0) + 20}
 					hideAxisLine
 					tickLabelProps={() => ({
 						fill: "white",
@@ -197,7 +197,7 @@ function MonthlyPostsChart({
 					<Tooltip top={tooltipTop - 35} left={tooltipLeft}>
 						{`${getPost(tooltipData)} posts`}
 					</Tooltip>
-					<Tooltip left={tooltipLeft - 35} top={yScale(minPost) + 20}>
+					<Tooltip left={tooltipLeft - 35} top={yScale(0) + 20}>
 						{`${formatMonthToText(getMonth(tooltipData))}`}
 					</Tooltip>
 				</div>
