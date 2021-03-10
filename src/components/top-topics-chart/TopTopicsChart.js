@@ -20,7 +20,7 @@ function TopTopicsChart({ monthlyPosts }) {
 	return (
 		<>
 			<h1 className="text-white px-2 py-1">
-				Top Topics for the Month of{" "}
+				Top Likely Topics for the Month of{" "}
 				{formatMonthToText(new Date(monthlyPosts[monthIndex].date))}
 			</h1>
 			<div className="flex flex-col h-5/6">

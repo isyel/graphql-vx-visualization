@@ -20,9 +20,8 @@ function AuthorsList({ posts }) {
 				};
 			})
 			.filter(
-				(authorPosts, index, self) =>
-					index ===
-					self.findIndex((singleObject) => singleObject.id === authorPosts.id)
+				(currentPost, index, self) =>
+					index === self.findIndex((post) => post.id === currentPost.id)
 			);
 		dispatch({ type: types.SET_AUTHORS, authors: authorsData });
 
@@ -48,10 +47,7 @@ function AuthorsList({ posts }) {
 					)
 					.filter(
 						(monthPosts, index, self) =>
-							index ===
-							self.findIndex(
-								(singleObject) => singleObject.date === monthPosts.date
-							)
+							index === self.findIndex((post) => post.date === monthPosts.date)
 					),
 			};
 		});

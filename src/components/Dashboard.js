@@ -39,7 +39,7 @@ function Dashboard() {
 	const [{ postsOfTheMonth, authors }, dispatch] = useDataLayerValue();
 
 	const { error, data } = useQuery(POSTS_QUERY, {
-		variables: { count: 200 },
+		variables: { count: 500 },
 	});
 
 	const topicsAggregation = useRef(null);
@@ -69,15 +69,15 @@ function Dashboard() {
 
 			dispatch({
 				type: types.SET_POSTS_PER_MONTH,
-				topPosts: topPostOfTheMonth,
+				postsOfTheMonth: topPostOfTheMonth,
 			});
 
 			topicsAggregation.current = groupTopics(data.allPosts);
 			if (authors)
 				authorsAggregation.current = authors
-					.map((author) => ({
-						label: author.author.firstName,
-						frequency: author.posts.length,
+					.map((authorArray) => ({
+						label: authorArray.author.firstName,
+						frequency: authorArray.posts.length,
 					}))
 					.sort((author1, author2) => author2.frequency - author1.frequency)
 					.slice(0, 6);

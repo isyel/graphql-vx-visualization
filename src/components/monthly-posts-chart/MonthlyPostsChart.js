@@ -46,7 +46,7 @@ function MonthlyPostsChart({
 		range: [0, width],
 		domain: extent(posts, getMonth),
 	});
-	const minPost = Math.min(...posts.map(getPost));
+	const minPost = 0;
 	const maxPost = Math.max(...posts.map(getPost));
 	const maxPostData = [
 		{
@@ -120,7 +120,7 @@ function MonthlyPostsChart({
 					from="#777782"
 					to="#000000"
 					fromOpacity={1}
-					toOpacity={0.3}
+					toOpacity={0.6}
 				/>
 				<RangeLabel
 					posts={maxPostData}
